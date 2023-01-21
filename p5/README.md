@@ -67,11 +67,11 @@ A sample HTML page might look like this:
 </html>
 ```
 
-### Environment
+### Environment / Creating + Running Projects
 
 **In this course, I am using VSCode from Microsoft** </br>
-Open VSCode. Open the folder that your html and js files are located in. Open your JavaScript file and you can edit it in VSCode. </br>
+Open VSCode. Open or make the folder that your html and js files are located in. Open your JavaScript file and you can edit it in VSCode. </br>
 </br>
-When you're done, open index.html in the Chrome browser by going to ```http://localhost:{your-port-num}/empty-example``` if you are using a local server) in Chrome to view your sketch. </br>
+When you're done, open your project (for our demonstration, ```empty-example```) in the Chrome browser by going to ```http://localhost:{your-port-num}/empty-example``` if you are using a local server) in Chrome to view your sketch. </br>
 </br>
 Parts of this tutorial were adapted from the book, Getting Started with p5.js, by Lauren McCarthy, Casey Reas, and Ben Fry, O'Reilly / Make 2015. Copyright © 2015. All rights reserved. Last modified at the p5.js 2019 Contributors Conference. </br>
