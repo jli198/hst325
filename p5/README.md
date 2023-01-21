@@ -25,8 +25,11 @@ If you look in [index.html](empty-example/index.html), you'll notice that it lin
 [Reference](https://github.com/processing/p5.js/wiki/Local-server) </br>
 
 **Probably the easiest way to setup a local server for all text editors even VSCode.** </br>
+</br>
 We will be using the [Web Server for](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb/related) [Chrome extension](https://en.wikipedia.org/wiki/Google_Chrome_App). Note that this feature is being [deprecated](https://support.google.com/chrome/thread/174381169?visit_id=638099376104476002-4011439868&p=chrome_app_deprecation&rd=1). </br>
+</br>
 There are other ways to setup a localhost in the reference above. </br>
+</br>
 Install the extension via the Chrome Web Store. To launch, got to ```chrome://apps``` or type Web Server for Chrome in your OS search bar and select *Web Server for Chrome*.
 
 ### VS Code Live Server
