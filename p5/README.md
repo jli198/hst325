@@ -34,7 +34,7 @@ Install the extension via the Chrome Web Store. To launch, got to ```chrome://ap
 Using the [Live Server extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) we can easily run a development web server for any local folder. </br>
 Instructions:
 
-* Open the VS Code extension manager(```CTRL-SHIFT-X``` / ```CMD-SHIFT-X).
+* Open the VS Code extension manager(```CTRL-SHIFT-X``` / ```CMD-SHIFT-X```).
 * Search for and install the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
 * Add a p5.js project folder to your VS Code Workspace.
 * With your project's ```index.html``` or   ```sketch.js``` file open, start the Live Server using the "Go Live" button in the status bar, or by using ```ALT-L``` ```ALT-O```.
@@ -68,5 +68,7 @@ A sample HTML page might look like this:
 
 **In this course, I am using VSCode from Microsoft** </br>
 Open VSCode. Open the folder that your html and js files are located in. Open your JavaScript file and you can edit it in VSCode. </br>
+</br>
 When you're done, open index.html in the Chrome browser by going to ```http://localhost:{your-port-num}/empty-example``` if you are using a local server) in Chrome to view your sketch. </br>
+</br>
 Parts of this tutorial were adapted from the book, Getting Started with p5.js, by Lauren McCarthy, Casey Reas, and Ben Fry, O'Reilly / Make 2015. Copyright © 2015. All rights reserved. Last modified at the p5.js 2019 Contributors Conference. </br>
