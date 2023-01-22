@@ -1,5 +1,7 @@
 # HST 325 - Visualizing Society: *Making Web-Based Interactive Visualizations of Socially-Relevant Data, Models, and Simulations*
 
+![A visualization of gridded global ambient population density made with d3.js](world_ambient_population_density_d3.jpg)
+
 HST 325-A </br>
 </br>
 College of Arts and Letters </br>
@@ -10,6 +12,7 @@ Spring 2023 </br>
 </br>
 Class: ```Mondays, 2-5:30pm, Morton 324``` </br>
 E-mail: ```awellers@stevens.edu``` </br>
+</br>
 
 ## Course Description
 
