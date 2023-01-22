@@ -13,6 +13,7 @@ Spring 2023 </br>
 Class: ```Mondays, 2-5:30pm, Morton 324``` </br>
 E-mail: ```awellers@stevens.edu``` </br>
 </br>
+Image at top: A visualization of gridded global ambient population density made with d3.js
 
 ## Course Description
 
