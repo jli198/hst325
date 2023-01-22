@@ -1,6 +1,6 @@
 # HST 325 - Visualizing Society: *Making Web-Based Interactive Visualizations of Socially-Relevant Data, Models, and Simulations*
 
-HST 325-A </br>
+HST 325-A
 </br>
 College of Arts and Letters </br>
 Stevens Institute of Technology </br>
