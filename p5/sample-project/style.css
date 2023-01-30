@@ -1,0 +1,46 @@
+/*	
+  	
+  		This is the CSS style sheet that governs how the HTML elements are displayed.
+  		You can modify it however you want to change the overall appearance of the window that
+  		holds the p5.js project.
+  		
+  		The actual p5.js project is injected into the page as a <canvas> element that is injected
+  		into the <main> tag into the <body> below. If the <main> tag is deleted, a new one is
+  		automatically created by p5.js. 
+  		
+  		You should make sure to change the contents the <span> tags with the ids of "title" and
+  		"author" below to match your name and project. The little bit of Javascript in the <body>
+  		tag will make the overall title of the webpage whatever you set the "title" to below.
+
+  		Note that everything in this text block is a comment and ignored by the browser.
+  		
+  	*/
+    
+		body { /* everything in the page is within the body, and so these act as general settings */
+      background-color: dimgrey;
+      font-family: "Consolas","Courier New",Courier; /* If the user doesn't have the first font, it tries the second, etc. */ 
+      color: silver;
+    }
+    
+		canvas { /* this is the <canvas> element that p5.js will create and use for your app */
+    	display: block;
+			margin-left: 1em;
+			margin-top: 1em;
+    	border: 1px solid gray;
+			box-shadow: 0 0 1em rgba(0,0,0,0.25);
+    }
+    
+		#meta { /* this is the <div> that displays the title and author information */
+			margin-top: 1em;
+			margin-left: 1em;
+    }
+    
+		#title, #author { 
+    	font-weight: bold;
+    }
+
+		#settings { /* if we wanted to initialize a settings box, this positions it */
+			position: fixed;
+			top: 1em;
+			right: 1em;
+		}
