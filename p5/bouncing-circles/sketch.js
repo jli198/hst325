@@ -39,7 +39,7 @@ console.log("sketch.js is loaded and running"); //an example of a logging functi
 // or const within a function are only available to that function. Try to use globals
 // sparingly, but don't be afraid to use them if you need them!
 
-let bouncing_circle = []; //our bouncing text object
+let bouncing_circle = []; //our bouncing circle object
 
 
 /* setup() is run once, upon starting up the code */
@@ -59,11 +59,11 @@ function setup() {
 	
   for(var i = 0; i < random(10, 50); i++) {
     bouncing_circle.push(new bouncingCircle({
-      size: 32,
+      // size: 60, // deprecated from old file
       color: color(random(255),random(255),random(255)),
       x: width/2,
       y: height/2,
-      d: 10,
+      d: 25,  // so outline can be more visible
       vx: random(-3,3), //random() is a p5 function that returns a random float within
       vy: random(-3,3)  //the bounds of min,max passed to it.
     }));
@@ -81,7 +81,7 @@ function draw() {
   }
 }
 
-//A very simple and naive implementation of a bouncing text string object
+//A very simple and naive implementation of a bouncing circle string object
 class bouncingCircle {
 	
 	//constructor() is what initializes the class and its variables
@@ -100,13 +100,12 @@ class bouncingCircle {
 		/*	Note the use of the keyword 'this' below. 'this' means "whatever object this
 				particular piece of code is part of. So its definition changes depending on
 				what code is being written. In this case, it means the bouncingCircle object that
-				has been created, so assigning a value to this.text is the same as assigning 
-				it to bouncing_circle.text. The useful part about using 'this' is that if we created
+				has been created, so assigning a value to this.d is the same as assigning 
+				it to bouncing_circle.d. The useful part about using 'this' is that if we created
 				a lot of bouncingCircle objects, we wouldn't need to know their individual variable names.
 		*/
 
-		this.text = args.text;
-		this.size = args.size;
+		// this.size = args.size; // redundant code but it can be of use for future expandability
 		this.x = args.x;
 		this.y = args.y;
     this.d = args.d;
@@ -139,7 +138,7 @@ class bouncingCircle {
 	//if I wanted to -- e.g., calculating the movement different than the appearance -- which
 	//for a more complicated program might be easier to keep track of.
 	draw() {
-		//formatting the text -- we do this each time because the program might have 
+		//formatting the circle -- we do this each time because the program might have 
 		//done other things with these settings, and we shouldn't take for granted they
 		//will be what we originally set them to.
 		stroke(random(255),random(255),random(255)); // trace the outline of the balls
@@ -147,23 +146,24 @@ class bouncingCircle {
 			
 		fill(this.color); //fill the color of the balls
 
-		//change the location of the text by adding the vector to the current location
+		//change the location of the ball by adding the vector to the current location
 		this.x+=this.vx;
 		this.y+=this.vy;
 
-		//calculate whether the new text position exceeds the bounds, and if so,
+		//calculate whether the new ball position exceeds the bounds, and if so,
 		//reverse the sign of the vector (which "bounces" it). this is very simplistic and can
-		//lead to situations where the text overshoots the boundary by a tiny bit if 
+		//lead to situations where the circle overshoots the boundary by a tiny bit if 
 		//the vectors are anything but 1. it is just meant as an example.
 		//Note: textWidth() is a p5 function that will calculate the pixel width of a
-		//given string of text at the current font settings
-		let text_width = textWidth(this.d); 
-		if(this.x+text_width/2>=width) this.vx*=-1; 
-		if(this.x-text_width/2<=0) this.vx*=-1;
+		//given string of circle at the current font settings
+
+		let circle_width = textWidth(this.d); 
+		if(this.x+circle_width/2>=width) this.vx*=-1; 
+		if(this.x-circle_width/2<=0) this.vx*=-1;
 		if(this.y-textSize()/2<=0) this.vy*=-1;
 		if(this.y>=height) this.vy*=-1;
 	
-		//now draw the final text object at the right coordinatees
+		//now draw the final circle object at the right coordinatees
 		circle(this.x, this.y, this.d);
 
 	}
