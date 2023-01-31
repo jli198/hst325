@@ -39,17 +39,17 @@ console.log("sketch.js is loaded and running"); //an example of a logging functi
 // or const within a function are only available to that function. Try to use globals
 // sparingly, but don't be afraid to use them if you need them!
 
-let bouncing_text = []; //our bouncing text object
+let bouncing_circle = []; //our bouncing text object
 
 
 /* setup() is run once, upon starting up the code */
 function setup() {
 	console.log("setup() is running");
-	createCanvas(800,600); //create the canvas and specify its dimensions (in pixels)
+	createCanvas(680,480); //create the canvas and specify its dimensions (in pixels)
 	frameRate(60); //how many times draw() is called per second 
 	
 	//DEMO CODE:
-	//create a new bouncingText() object, assign it to the global variable bouncing_text.
+	//create a new bouncingCircle() object, assign it to the global variable bouncing_circle.
 	//note that we create this once, in setup(), so we can then access it in draw();
 	//note that "width" is a global created by p5.js and contains width of the canvas,
 	//and "height" contains the height. Feel free to chance these settings and see
@@ -58,12 +58,12 @@ function setup() {
 	//but this way lets us see exactly what each of these variables are corresponding to.
 	
   for(var i = 0; i < random(10, 50); i++) {
-    bouncing_text.push(new bouncingText({
-      text: "Hello, world!",
+    bouncing_circle.push(new bouncingCircle({
       size: 32,
-      color: color(127,127,127),
+      color: color(random(255),random(255),random(255)),
       x: width/2,
       y: height/2,
+      d: 10,
       vx: random(-3,3), //random() is a p5 function that returns a random float within
       vy: random(-3,3)  //the bounds of min,max passed to it.
     }));
@@ -76,17 +76,17 @@ function setup() {
 function draw() {
 	
 	background(0); //paint the canvas black -- notice what happens if you comment this line out
-	for(var i in bouncing_text) {
-    bouncing_text[i].draw(); //run the draw() function of the bouncingText object we created	
+	for(var i in bouncing_circle) {
+    bouncing_circle[i].draw(); //run the draw() function of the bouncingCircle object we created	
   }
 }
 
 //A very simple and naive implementation of a bouncing text string object
-class bouncingText {
+class bouncingCircle {
 	
 	//constructor() is what initializes the class and its variables
 	constructor(args) {
-		console.log("new bouncingText created");
+		console.log("new bouncingCircle created");
 		/*	For our constructor, we need to make sure the new object has the right properties.
 				In this case, we are expecting the programmer to pass them as properties of an
 				object called 'args'. We are now transferring the properties of the 'args' object
@@ -99,16 +99,17 @@ class bouncingText {
 
 		/*	Note the use of the keyword 'this' below. 'this' means "whatever object this
 				particular piece of code is part of. So its definition changes depending on
-				what code is being written. In this case, it means the bouncingText object that
+				what code is being written. In this case, it means the bouncingCircle object that
 				has been created, so assigning a value to this.text is the same as assigning 
-				it to bouncing_text.text. The useful part about using 'this' is that if we created
-				a lot of bouncingText objects, we wouldn't need to know their individual variable names.
+				it to bouncing_circle.text. The useful part about using 'this' is that if we created
+				a lot of bouncingCircle objects, we wouldn't need to know their individual variable names.
 		*/
 
 		this.text = args.text;
 		this.size = args.size;
 		this.x = args.x;
 		this.y = args.y;
+    this.d = args.d;
 		this.vx = args.vx;
 		this.vy = args.vy;
 
@@ -141,10 +142,10 @@ class bouncingText {
 		//formatting the text -- we do this each time because the program might have 
 		//done other things with these settings, and we shouldn't take for granted they
 		//will be what we originally set them to.
-		noStroke(); //don't trace the outline of the text
-		textSize(this.size); //size the text
-		textAlign(CENTER); //align it so that the text is centered on x				
-		fill(this.color); //fill the color of the text
+		stroke(random(255),random(255),random(255)); // trace the outline of the balls
+		
+			
+		fill(this.color); //fill the color of the balls
 
 		//change the location of the text by adding the vector to the current location
 		this.x+=this.vx;
@@ -156,14 +157,14 @@ class bouncingText {
 		//the vectors are anything but 1. it is just meant as an example.
 		//Note: textWidth() is a p5 function that will calculate the pixel width of a
 		//given string of text at the current font settings
-		let text_width = textWidth(this.text); 
+		let text_width = textWidth(this.d); 
 		if(this.x+text_width/2>=width) this.vx*=-1; 
 		if(this.x-text_width/2<=0) this.vx*=-1;
 		if(this.y-textSize()/2<=0) this.vy*=-1;
 		if(this.y>=height) this.vy*=-1;
 	
 		//now draw the final text object at the right coordinatees
-		text(this.text, this.x, this.y);
+		circle(this.x, this.y, this.d);
 
 	}
 }
