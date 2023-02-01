@@ -45,7 +45,7 @@ let bouncing_circle = []; //our bouncing circle object
 /* setup() is run once, upon starting up the code */
 function setup() {
 	console.log("setup() is running");
-	createCanvas(680,480); //create the canvas and specify its dimensions (in pixels)
+	createCanvas(800,600); //create the canvas and specify its dimensions (in pixels)
 	frameRate(60); //how many times draw() is called per second 
 	
 	//DEMO CODE:
