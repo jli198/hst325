@@ -46,6 +46,7 @@ var settings = {
 	radiusAtoms: 5,
 	radiusNeutrons: 1,
 	numberOfNeutronsPerFission: 2,
+  fissionProbability: 10,
 	neutronSpeed: 5,
 	neutronLife: 10,
 	initialNeutrons: 1,
@@ -61,7 +62,7 @@ var neutrons = [];
 var explosions = [];
 
 function preload() {
-  sound = loadSound("vine-boom.mp3")
+  sound = loadSound("vine-boom.mp3");
 }
 
 /* setup() is run once, upon starting up the code */
@@ -81,26 +82,29 @@ function setup() {
 
 		if(random(0,100)<settings.enrichment) {
 			var atomType = 0;
-		} else {
+		}
+    else if(random(0, 100)<settings.fissionProbability) { // set some atoms to be primed to be fissioned
+      var atomType = 3;
+    }
+    else {
 			var atomType = 1;
 		}
-		atoms.push( new Atom({
+		atoms.push(new Atom({
 			radius: settings.radiusAtoms,
 			x: position.x,
 			y: position.y,
-			type: atomType,
+			type: atomType
 		})
 		)
 	}
 	for(var i = 0; i<settings.initialNeutrons; i++) {
-		neutrons.push( new Neutron({
+		neutrons.push(new Neutron({
 				x: width/2,
 				y: height/2
 			})
 		) 
 	}
 }
-
 
 /* draw() is run over and over again, based on the frameRate() setting in setup() */
 /* be careful about putting logging functions here -- they can flood your console! */
@@ -109,7 +113,7 @@ function draw() {
 	background(0); //paint the canvas black -- notice what happens if you comment this line out
 
 	for(var i in neutrons) {
-		neutrons[i].draw();
+		neutrons[i].draw(); // run the draw() function
 	}
 
 	for(var i in atoms) {
@@ -120,14 +124,11 @@ function draw() {
 		explosions[i].draw(); //run the draw() function 
 	}
 
-
-
 	atoms = cleanupObjects(atoms,"alive",true);
 	neutrons = cleanupObjects(neutrons,"alive",true);
 	explosions = cleanupObjects(explosions,"alive",true);
 
 }
-
 
 class Atom {
 	constructor(args) {
@@ -139,6 +140,7 @@ class Atom {
 		this.alive = true; 
 		this.type = args.type;
 	}
+
 	draw() {
 		if(this.alive == false) return; 
 		this.x=this.x+this.vx;
@@ -146,22 +148,27 @@ class Atom {
 		if(this.type==0) {
 			stroke("blue");
 			fill("navy");
-		} else if(this.type==1) {
+		} 
+    else if(this.type==1) {
 			stroke("red");
 			fill("brown");		
-		} else if(this.type==2) {
+		} 
+    else if(this.type==2) {
 			stroke("brown");
 			fill("purple");
 		}
+    else if (this.type==3) {  // if an atom is fission ready, it will initiate the fission submethod below 
+      this.fission();
+    }
 		circle(this.x,this.y,this.radius*2);
 	}
+
 	fission() {
 		this.alive = false;
 		for(var i = 0; i<settings.numberOfNeutronsPerFission; i++) {
 			neutrons.push(new Neutron({x:this.x, y:this.y}));
 		}
 		explosions.push(new Explosion({x: this.x, y: this.y}));
-    sound.play(); 
 	}
 }
 
@@ -176,6 +183,7 @@ class Neutron {
 		this.radius = settings.radiusNeutrons; 
 		this.alive = true; 
 	}
+
 	draw() {
 
 		if(this.alive == false) return; 
@@ -193,7 +201,9 @@ class Neutron {
 					this.alive = false;
 					if(atoms[i].type==0) {
 						atoms[i].fission();
-					} else {
+            sound.play();                     // play vine-boom.mp3 when each neutron hits. much less annoying than in fission() method
+					} 
+          else {
 						atoms[i].type = 2;
 					}
 				}
@@ -227,6 +237,5 @@ class Explosion {
 		noStroke();
 		fill("white");
 		circle(this.x,this.y,this.radius*2);
-
 	}
 }
