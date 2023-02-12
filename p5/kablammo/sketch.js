@@ -62,7 +62,7 @@ var neutrons = [];
 var explosions = [];
 
 function preload() {
-  sound = loadSound("vine-boom.mp3");
+  sound = loadSound("roblox-oof.mp3");
 }
 
 /* setup() is run once, upon starting up the code */
@@ -70,7 +70,6 @@ function setup() {
 	console.log("setup() is running");
 	createCanvas(settings.canvasWidth,settings.canvasHeight); //create the canvas and specify its dimensions (in pixels)
 	frameRate(60); //how many times draw() is called per second 
-
 	addSettingsTable(settings);
 
 	atoms = [];
@@ -78,7 +77,8 @@ function setup() {
 	explosions = [];
 
 	for(var i = 0; i<settings.numberOfAtoms; i++) {
-		var position = diskPointPicking(width/2,height/2,settings.diskDiameter);
+		
+    var position = diskPointPicking(width/2,height/2,settings.diskDiameter);
 
 		if(random(0,100)<settings.enrichment) {
 			var atomType = 0;
@@ -89,6 +89,7 @@ function setup() {
     else {
 			var atomType = 1;
 		}
+
 		atoms.push(new Atom({
 			radius: settings.radiusAtoms,
 			x: position.x,
@@ -97,6 +98,7 @@ function setup() {
 		})
 		)
 	}
+
 	for(var i = 0; i<settings.initialNeutrons; i++) {
 		neutrons.push(new Neutron({
 				x: width/2,
@@ -109,7 +111,6 @@ function setup() {
 /* draw() is run over and over again, based on the frameRate() setting in setup() */
 /* be careful about putting logging functions here -- they can flood your console! */
 function draw() {
-	
 	background(0); //paint the canvas black -- notice what happens if you comment this line out
 
 	for(var i in neutrons) {
@@ -145,6 +146,7 @@ class Atom {
 		if(this.alive == false) return; 
 		this.x=this.x+this.vx;
 		this.y=this.y+this.vy;
+
 		if(this.type==0) {
 			stroke("blue");
 			fill("navy");
@@ -164,6 +166,7 @@ class Atom {
 	}
 
 	fission() {
+    
 		this.alive = false;
 		for(var i = 0; i<settings.numberOfNeutronsPerFission; i++) {
 			neutrons.push(new Neutron({x:this.x, y:this.y}));
@@ -185,7 +188,6 @@ class Neutron {
 	}
 
 	draw() {
-
 		if(this.alive == false) return; 
 		this.life = this.life - 1;
 
@@ -201,7 +203,7 @@ class Neutron {
 					this.alive = false;
 					if(atoms[i].type==0) {
 						atoms[i].fission();
-            sound.play();                     // play vine-boom.mp3 when each neutron hits. much less annoying than in fission() method
+            sound.play();                     // play roblox-oof.mp3 when each neutron hits. much less annoying than in fission() method
 					} 
           else {
 						atoms[i].type = 2;
@@ -226,6 +228,7 @@ class Explosion {
 		this.radius = settings.explosionMinRadius;
 		this.alive = true;
 	}
+
 	draw() {
 		if(this.alive == false) return;
 		this.life = this.life-1;
