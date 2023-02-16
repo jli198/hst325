@@ -186,12 +186,11 @@ Part of our job in class will be to critique one another's work. Treat your fell
 *Homework:*
 
 1. In the style of your Wiseman assignment, begin to create a written model for how the Stevens Institute of Technology works and might be simulated.
-2. Play "Academia" and write a short response paper on its underlying assumptions and their benefits and limitations as a school model.
-3. Play "Jones in the Fast Lane" and write a short response paper on its underlying assumptions, etc.
+2. Play "Jones in the Fast Lane" and write a short response paper on its underlying assumptions, etc.
 
 ### WEEK 5
 
-*2-20 [Monday-on-Wednesday]:* Discussion of homework and "Academia" and "Jones in the Fast Lane." More in-class discussion of social modeling and simulation. Beginning of Stevens Student Simulator project in class (Phaser.js). </br>
+*2-20 [Monday-on-Wednesday]:* Discussion of homework and "Jones in the Fast Lane." More in-class discussion of social modeling and simulation. Beginning of Stevens Student Simulator project in class (Phaser.js). </br>
 </br>
 *Homework:*
 
