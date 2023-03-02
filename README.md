@@ -139,6 +139,46 @@ Some of these aspects are obviously subjective, but it is your job in the theory
 </br>
 If you are entering this class with more advanced programming skills, I will be expecting you to flex them in your projects. Don't do the bare minimum - I am giving you an excuse to do some interesting stuff and get credit for it! If you are entering with more minimal programming abilities, just do your best - you'll learn something, even if it doesn't feel like it!
 
+## Useful software
+
+This is for links to software that you may find useful for this class.
+
+### Code editors / IDEs
+
+If you already use an editor or IDE you are comfortable with, just use that. If you don't know what an IDE even is, you probably want to dwonload one of the below. (IDE = Integrated Development Environment, a program thati s designed to help you write and manage coding.)
+
+* [Microsoft Visual Studio Code](https://code.visualstudio.com/) (Windows or Mac) - This is rapidly becoming the "standard" free IDE. THe main advantage to it over other text editors, to my mind, is that it is fairly "smart" when it comes to syntax highlighting and bug finding, and if you open a directory in it, it lets you easily access the files for standard projects. I find some of its default settings impossible to use - I disable "Auto closing quotes," "Auto closing brackets," "Auto closing tags" because otherwise it keeps trying to edit my code in ways I find irritating and not helpful. There are also very advanced freatures, like integrating it with GitHub, that I don't use, and sometimes take some effort to turn off notifications about. But overall a pretty useful way to organize your projects and code, and a pretty useful code editor.
+* There are also several "advanced" text editors that are popular, if you for whatever reason find the idea or practice of an IDE difficult. If you are starting off, I would recommend trying VS Code first and seeing if you are used to it, as it *does* make certain things easier (like remembering functions and their variables, and finding mis-matched quotes and parentheses and so on) once you get the hang of its idiosyncrasies. The below are basically just beefed up versions of Notepad that are tailored to coding, and prety bare-bones by comparison, though there is something to be said for learning to code that way (that's how I did it).
+  * [Notepad++](https://notepad-plus-plus.org/) (Windows only) - extremely bare-bones text editor for Windows that is nonetheless more full-featured than your Normal Notepad
+  * [BBEdit](https://www.barebones.com/products/bbedit/) (Mac only) - sort of like Notepad++ for Macs. (Click "Free download," after 30 days reverts to "free mode" which is still totally fine because you won't likely be using the advanced features anyway)
+  * [Sublime Text](https://www.sublimetext.com/) - sort of an intermediary between VS Code and the more bare-bones text editors; more features than Notepad++ or BBEdit, not as much "overhead" as VS Code. Free to "evaluate," which means it will nag you periodically to buy it, which you can ignore, but the nagging can get pretty irritating after a while.
+
+### Node.js
+
+You will eventually need to install Node.js when we get to the Phaser assignment. You can download and install it [here]([)](https://nodejs.org/en/). I will give you detailed instructions on how to use it for your projects for this class.
+
+### Local web hosts
+
+You will eventually need to install a local web host if you do not have one already, so that your computer can emulate being a web server (this is because modern browsers limit what scripts can do if they are not hosted, to limit the spraed of viruses and whatnot). </br>
+</br>
+I may have a very limited web host ready that we can use for this class that will be usable for the limited purposes we need it to be. </br>
+</br>
+If you want to install a fully-featured web host, the most common setup is called a WAMP or a MAMP. AMP stands for Apache + MySQL + PHP, three commonly bundled software packages (Apache is a web server, MySQL is a database server, PHP is server-side programming language). (W = Windows, M = Mac.) Apache is all we really care about, but installing Apache by itself is a pain in the neck. Installing a full WAMP or MAMP can be a lot of work and debugging, and if you don't set it up right, can open your computer up for security problems. But if you are interested in doing "full stack" web development in the future, you might want to do this, just to get a feel for it. </br>
+</br>
+The ones I have used myself and for teaching in the past are:
+
+* [WAMPServer](https://www.wampserver.com/en/) (Windows) - a full-featured WAMP that is realtively easy to install and maintain for Windows. Runs in a tray icon. The server files by default are kept in the "www" directory of wherever you install it.
+* [MAMP](https://www.mamp.info/en/mamp/mac/) (Mac and, apparently Windows) - I've only used this on a Mac. It has been a little less straightforward to set up than WAMPServer out of the box, but I've managed to get it working. It tries to get you to buy MAMP Pro, and I've just ignored that, and it has seemed to work fine no matter what.
+
+Again, if you don't know what a WAMP/MAMP really is, and are not that interested in learning, wait until later in the semester and I may have a much simpler alternative available that will do what we need for the class and no more, because we will not be using MySQL or PHP and do not need a server with all of the complicated configuration options as Apache.
+
+### Image editors
+
+There will be some assignments where being able to manipulate bitmap graphics (e.g., PNGs and JPEGs) would be useful. If you don't already have a pirated copy of Photoshop, and aren't made of money, these are some OK alternatives:
+
+* [Paint.net](https://www.getpaint.net/) (Windows) - a decent-enough bitmap editor, an upgrade from the default Paint program included in Windows. Nowhere as fully-featured as Photoshop, but lets you import and export pretty much any file format you would want to use, allows the use of layers and effects and tools.
+* [GIMP](https://www.gimp.org/downloads/) (Windows or Mac) - an open-source bitmap editor that is in principle capable of doing a lot, but is really a pain to use in my experience, because it is built around a Linux-user's view of software, which as you will find is very different in many ways from a Windows or Mac user's idea of a godd time, or an intuitive interface. But it's free.
+
 ## Class-time Policies
 
 This course mixes reading, writing, talking, and making. You will be expected to do all four simultaneously. You are capable of it. </br>
