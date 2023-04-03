@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<title>Leaflet CircleMarkers Demo</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="lib/leaflet.css">
+
+<link rel="stylesheet" href="style.css">
+<script src="lib/misc.js"></script>
+</head>
+<body>
+<div id="map"></div>
+<div id="menu">
+	<div id="menu_contents">
+		<h2 class="header">iZone Schools</h2>
+		<div id="options">
+			<div>
+				Locate data: 
+				<select id="locator">
+					<option value=""></option>
+				</select>
+			</div>
+			<div>
+				Set radius: 
+					<select id="radius">
+						<option value="adult_price" selected>Adult price</option>
+						<option value="adult_price_inverse">Adult price (inverted)</option>
+						<option value="10">10</option>
+						<option value="20">20</option>
+					</select>
+				</div>
+			<div>
+				Set color: 
+				<select id="color">
+					<option value="adult_price_interpolated" selected>Adult price (interpolated)</option>
+					<option value="adult_price_ranges">Adult price (ranges)</option>
+					<option value="#3388ff">Blue</option>
+				</select>
+				</div>
+			<div>
+				Filter by open day: 
+				<select id="filter_open">
+					<option value="">All</option>
+					<option value="Monday">Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday">Friday</option>
+					<option value="Saturday">Saturday</option>
+					<option value="Sunday">Sunday</option>
+					<option value="Christmas">Christmas</option>
+					<option value="Thanksgiving">Thanksgiving</option>
+				</select>
+			</div>
+		</div>
+		<div id="caption"></div>
+		<div id="status"></div>
+	</div>
+</div>
+<script src="bundle.js"></script>
+</body>
+</html>
