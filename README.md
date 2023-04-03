@@ -10,8 +10,8 @@ Spring 2023 </br>
 </br>
 **Dr. Alex Wellerstein** </br>
 </br>
-Class: ```Mondays, 2-5:30pm, Morton 324``` </br>
-E-mail: ```awellers@stevens.edu``` </br>
+Class: `Mondays, 3-5:30pm, Morton 324` </br>
+E-mail: `awellers@stevens.edu` </br>
 </br>
 Image at top: A visualization of gridded global ambient population density made with d3.js
 
