@@ -1,8 +1,11 @@
-// This is the VERY SIMPLE version of app.js.
-// It does NOT interact with any of the "controls" on HTML file at all.
-// It basically just plots data in the simplest way possible.
-// Use this to get STARTED then look to app.complex.js to see how you can
-// add more functionality.
+// Initialize Jquery on our window
+var $ = jQuery = require('jquery');	
+
+// CSV parser
+const parse = require('csv-parse');
+
+// Initialize leaflet.js
+var L = require('leaflet');
 
 // Initialize the map
 var map = L.map('map', {
@@ -57,22 +60,28 @@ var myData = {
 	csv: "NYCGO_museums_20and_20galleries_001.csv", 
 
 	//function that returns the latitude and longtiude of the data as an array
-	latLng: function(d) { 
-		//example of how to do it if a single column has both (e.g., lat,lon):
-		//var ll = d.latlon.split(",");
-		//return [+ll[0],+ll[1]];
-		return [+d.lat,+d.lon]
-	}, 
+	latLng: function(d) { return [+d.lat,+d.lon]}, 
 
 	//function that produces an array that tells it how to display in the locator control
 	locator: function() {
-		return undefined; //disabled for simple version
+		var data = [...myData.data]; //copy the data
+		data.sort(function(a,b) { //sort by name
+			if(a.name>b.name) return 1;
+			if(a.name<b.name) return -1; 
+			return 0;
+		})
+		//create new array of just the index and the name
+		var locator = [];
+		for(var i in data) {
+			locator.push([data[i].i,data[i].name]);
+		}
+		return locator;		
 	},
 
 	//function called when something is selected on the locator
 	//gets the index of the data object, or blank if none selected 
 	locate: function(data_index) {
-		//you shouldn't need to change this
+		console.log(data_index, myData.data);
 		if(data_index=="") {
 			$("#caption").html("");
 			for(var i in circles) {
@@ -93,12 +102,46 @@ var myData = {
 
 	//radius of the circle (in pixels)
 	radius: function(d) {
-		return 10; //just returning a basic number to start
+		var option = $("#radius").val();
+		switch(option) {
+			case "adult_price": return +d.adult_price+2; break;
+			case "adult_price_inverse":
+				//I happen to know the max price, but one could look it up
+				return +(myData.max["adult_price"]-d.adult_price)+2; 
+			break;
+			case "10": return 10; break;
+			case "20": return 20; break;
+		}
 	}, 
 
 	//changes the fill color 
 	fillColor: function(d) {
-		return "skyblue"; 
+		var option = $("#color").val();
+		if(option=="adult_price_ranges") {
+			if(+d.adult_price>20) {
+				return "red";
+			} else if(d.adult_price>10) {
+				return "yellow";
+			} else if(d.adult_price>0) {
+				return "green";
+			} else {
+				return "lime";
+			}
+		} else if(option=="adult_price_interpolated") {
+			//this is a really crappy rgb linear interpolation
+			var c_max = [255,0,0]; //highest color is red
+			var c_min = [0,255,0]; //lowest color is green
+			var max = myData.max["adult_price"]; //set the max value
+			var min = myData.min["adult_price"]; //set the min value 
+			var c3 = [ //get the interpolated rgb values
+				lerp(c_max[0],max,c_min[0],min,d.adult_price),
+				lerp(c_max[1],max,c_min[1],min,d.adult_price),
+				lerp(c_max[2],max,c_min[2],min,d.adult_price),
+			];
+			return `rgb(${c3[0]},${c3[1]},${c3[2]})`; //return the color
+		} else {
+			return option;
+		}		
 	},
 
 	//could set the stroke color separately,
@@ -128,16 +171,36 @@ var myData = {
 	//what happens when a circle is clicked
 	caption: function(d) {
 		var o = "";
-		o+="<b>"+d.name+"</b>"; //right now just returns the field "name" of the data
+		o+="<b>"+d.name+"</b><br>";
+		o+=d.formatted_address+"<br>";
+		o+=d.closing+"<br>";
+		o+=d.rates+"<br>";
+		o+=d.specials+"<br>";
 		$("#caption").html(o);
 	},
 
 	//should we display a given piece of data? used for filter.
 	//if it returns true, the data will be shown as normal.
 	//if it returns false, the data will have the class "hidden" attached to it.
-	show: true, //disabled to make it simple
+	show: function(d) {
+		//an example of how to filter data 
+		var option = $("#filter_open").val();
+
+		//if all are to be shown, display all
+		if(!option) return true;
+		//tokenize the sentence based on its lower-case text, with no punctuation, split by spaces
+		var closed = d.closing.toLowerCase().replaceAll(",","").replaceAll(".","");
+		var closed_words = closed.split(" ");
+		//then don't display the data if the sentence contains the prohibited word
+		if(closed.includes(option.toLowerCase())) {
+			return false;
+		} else {
+			return true;
+		}
+	},
 
 }
+
 
 //function that displays the data
 function show_data() {
@@ -262,68 +325,55 @@ $("#color").on("change",function() {
 $("#filter_open").on("change",function() {
 	update();
 })
-$("#seniors").on("change", function() {
-	update();
-})
-
-$("#price_range").on("change", function() {
-	$("#price_range_value").text("$"+$(this).val());
-	update();
-})
-
 
 //start downloading the data
 $.get(myData.csv, function(csvString) {
 	//got the CSV file as a string, now have to parse it
-	//Papa is a module that parses CSV 
-	Papa.parse(csvString, {
-			delimiter: ",",
-			header: true,
-			error: function(err) { alert("There was an error loading the data: "+err)},			
-			complete: function(results) {
-				processData(results.data);
+	parse.parse(csvString,{delimiter: ",", columns: true},function(err,rows){
+		if(err) {
+			alert("There was an error loading the data: "+err);
+		} else {
+			//show the data
+
+			//preserve the initial index
+			for(var i in rows) {
+				rows[i].i = i;
 			}
-	});
+
+			myData.data = rows;
+
+			//would be nice to know the maxes and mins of any value
+			//only works for numbers in this implementation
+			var max = []; var min = [];
+			for(var i in Object.keys(rows[0])) {
+				var key = Object.keys(rows[0])[i];
+				max[key] = +rows[0][key];
+				min[key] = +rows[0][key];
+			}
+			for(var i in rows) {
+				for(var k in Object.keys(max)) {
+					key = Object.keys(max)[k];
+					if(+rows[i][key]>max[key]) max[key]=(+rows[i][key]);
+					if(+rows[i][key]<min[key]) min[key]=(+rows[i][key]);
+				}
+			}
+			myData.max = max;
+			myData.min = min;
+
+			//make the locator
+			if((typeof myData.locator == "function")&&($("#locator"))) { 
+				var l = myData.locator();
+				var opts = "";
+				for(var i in l) {
+					opts+='<option value="'+l[i][0]+'">'+l[i][1]+'</option>';
+				}
+				$("#locator").html($("#locator").html()+opts);
+				$("#locator").on("change",function() {
+					myData.locate($("#locator").val());
+				})
+
+			}
+			show_data();
+		}
+	})
 })
-
-//processes and then shows the data
-function processData(rows) {
-	//preserve the initial index
-	for(var i in rows) {
-		rows[i].i = i;
-	}
-
-	myData.data = rows;
-
-	//would be nice to know the maxes and mins of any value
-	//only works for numbers in this implementation
-	var max = []; var min = [];
-	for(var i in Object.keys(rows[0])) {
-		var key = Object.keys(rows[0])[i];
-		max[key] = +rows[0][key];
-		min[key] = +rows[0][key];
-	}
-	for(var i in rows) {
-		for(var k in Object.keys(max)) {
-			key = Object.keys(max)[k];
-			if(+rows[i][key]>max[key]) max[key]=(+rows[i][key]);
-			if(+rows[i][key]<min[key]) min[key]=(+rows[i][key]);
-		}
-	}
-	myData.max = max;
-	myData.min = min;
-
-	//make the locator
-	if((typeof myData.locator == "function")&&($("#locator"))) { 
-		var l = myData.locator();
-		var opts = "";
-		for(var i in l) {
-			opts+='<option value="'+l[i][0]+'">'+l[i][1]+'</option>';
-		}
-		$("#locator").html($("#locator").html()+opts);
-		$("#locator").on("change",function() {
-			myData.locate($("#locator").val());
-		})
-	}
-	show_data();
-}

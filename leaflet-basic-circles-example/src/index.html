@@ -5,7 +5,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="lib/leaflet.css">
-
+<script src="lib/leaflet.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <link rel="stylesheet" href="style.css">
 <script src="lib/misc.js"></script>
 </head>
@@ -53,11 +55,16 @@
 					<option value="Thanksgiving">Thanksgiving</option>
 				</select>
 			</div>
+			<div>
+				Price is less or equal: <input type="range" id="price_range" value=0> <span id="price_range_value"></span>
+			</div>
+			<div>
+				Senior discount? <input type="checkbox" id="seniors">
 		</div>
 		<div id="caption"></div>
 		<div id="status"></div>
 	</div>
 </div>
-<script src="bundle.js"></script>
+<script src="bundle.js">/* change the src at left to app.js if you are NOT using node.js for this */</script>
 </body>
 </html>

@@ -1,11 +1,3 @@
-// Initialize Jquery on our window
-var $ = jQuery = require('jquery');	
-
-// CSV parser
-const parse = require('csv-parse');
-
-// Initialize leaflet.js
-var L = require('leaflet');
 
 // Initialize the map
 var map = L.map('map', {
@@ -57,13 +49,23 @@ function update_status() {
 //an object that contains info about the specific data I am displaying
 var myData = {
 	//the CSV file with the data 
-	csv: "iZone_School_List.csv", 
+	csv: "NYCGO_museums_20and_20galleries_001.csv", 
 
 	//function that returns the latitude and longtiude of the data as an array
-	latLng: function(d) { return [+d.lat,+d.lon]}, 
+	latLng: function(d) { 
+		//example of how to do it if a single column has both (e.g., lat,lon):
+		//var ll = d.latlon.split(",");
+		//return [+ll[0],+ll[1]];
+		return [+d.lat,+d.lon]
+	}, 
 
 	//function that produces an array that tells it how to display in the locator control
 	locator: function() {
+		$("#price_range").prop("min",myData.min["adult_price"]);
+		$("#price_range").prop("max",myData.max["adult_price"]);
+		$("#price_range").val(myData.max["adult_price"]);
+		$("#price_range_value").text("$"+myData.max["adult_price"]);
+
 		var data = [...myData.data]; //copy the data
 		data.sort(function(a,b) { //sort by name
 			if(a.name>b.name) return 1;
@@ -81,7 +83,6 @@ var myData = {
 	//function called when something is selected on the locator
 	//gets the index of the data object, or blank if none selected 
 	locate: function(data_index) {
-		console.log(data_index, myData.data);
 		if(data_index=="") {
 			$("#caption").html("");
 			for(var i in circles) {
@@ -103,7 +104,7 @@ var myData = {
 	//radius of the circle (in pixels)
 	radius: function(d) {
 		var option = $("#radius").val();
-		switch(option) {
+		switch(option) {			
 			case "adult_price": return +d.adult_price+2; break;
 			case "adult_price_inverse":
 				//I happen to know the max price, but one could look it up
@@ -183,16 +184,34 @@ var myData = {
 	//if it returns true, the data will be shown as normal.
 	//if it returns false, the data will have the class "hidden" attached to it.
 	show: function(d) {
-		//an example of how to filter data 
+
+		//check if the senior checkbox is checked, if so, return 'false' for any
+		//entries that don't have the word 'seniors' in their 'rates' field
+		if($("#seniors").prop("checked")) {
+			if(!(d.rates.toLowerCase().indexOf("seniors")>-1)) {
+				return false;
+			}
+		}
+
+		//checks the #price_range range value, only returns ones that are
+		//less than or equal to its value
+		if(!(+d.adult_price<=$("#price_range").val())) {
+			return false;
+		}
+
+		//the #filter_open select looks for keywords to determine when a
+		//museum isn't open
 		var option = $("#filter_open").val();
 
 		//if all are to be shown, display all
 		if(!option) return true;
 		//tokenize the sentence based on its lower-case text, with no punctuation, split by spaces
-		var closed = d.closing.toLowerCase().replaceAll(",","").replaceAll(".","");
-		var closed_words = closed.split(" ");
-		//then don't display the data if the sentence contains the prohibited word
-		if(closed.includes(option.toLowerCase())) {
+		//if the sentence was "Closed on Christmas, Thanksgiving." the bellow will create an array
+		//that contains ["closed","on","christmas","thanksgiving"]. 
+		var closed_words = d.closing.toLowerCase().replaceAll(",","").replaceAll(".","").split(" ");
+
+		//now we check the array to see if it contains the prohibited word
+		if(closed_words.includes(option.toLowerCase())) {
 			return false;
 		} else {
 			return true;
@@ -200,7 +219,6 @@ var myData = {
 	},
 
 }
-
 
 //function that displays the data
 function show_data() {
@@ -325,55 +343,68 @@ $("#color").on("change",function() {
 $("#filter_open").on("change",function() {
 	update();
 })
+$("#seniors").on("change", function() {
+	update();
+})
+
+$("#price_range").on("change", function() {
+	$("#price_range_value").text("$"+$(this).val());
+	update();
+})
+
 
 //start downloading the data
 $.get(myData.csv, function(csvString) {
 	//got the CSV file as a string, now have to parse it
-	parse.parse(csvString,{delimiter: ",", columns: true},function(err,rows){
-		if(err) {
-			alert("There was an error loading the data: "+err);
-		} else {
-			//show the data
-
-			//preserve the initial index
-			for(var i in rows) {
-				rows[i].i = i;
+	//Papa is a module that parses CSV 
+	Papa.parse(csvString, {
+			delimiter: ",",
+			header: true,
+			error: function(err) { alert("There was an error loading the data: "+err)},			
+			complete: function(results) {
+				processData(results.data);
 			}
-
-			myData.data = rows;
-
-			//would be nice to know the maxes and mins of any value
-			//only works for numbers in this implementation
-			var max = []; var min = [];
-			for(var i in Object.keys(rows[0])) {
-				var key = Object.keys(rows[0])[i];
-				max[key] = +rows[0][key];
-				min[key] = +rows[0][key];
-			}
-			for(var i in rows) {
-				for(var k in Object.keys(max)) {
-					key = Object.keys(max)[k];
-					if(+rows[i][key]>max[key]) max[key]=(+rows[i][key]);
-					if(+rows[i][key]<min[key]) min[key]=(+rows[i][key]);
-				}
-			}
-			myData.max = max;
-			myData.min = min;
-
-			//make the locator
-			if((typeof myData.locator == "function")&&($("#locator"))) { 
-				var l = myData.locator();
-				var opts = "";
-				for(var i in l) {
-					opts+='<option value="'+l[i][0]+'">'+l[i][1]+'</option>';
-				}
-				$("#locator").html($("#locator").html()+opts);
-				$("#locator").on("change",function() {
-					myData.locate($("#locator").val());
-				})
-
-			}
-			show_data();
-		}
-	})
+	});
 })
+
+//processes and then shows the data
+function processData(rows) {
+	//preserve the initial index
+	for(var i in rows) {
+		rows[i].i = i;
+	}
+
+	myData.data = rows;
+
+	//would be nice to know the maxes and mins of any value
+	//only works for numbers in this implementation
+	var max = []; var min = [];
+	for(var i in Object.keys(rows[0])) {
+		var key = Object.keys(rows[0])[i];
+		max[key] = +rows[0][key];
+		min[key] = +rows[0][key];
+	}
+	for(var i in rows) {
+		for(var k in Object.keys(max)) {
+			key = Object.keys(max)[k];
+			if(+rows[i][key]>max[key]) max[key]=(+rows[i][key]);
+			if(+rows[i][key]<min[key]) min[key]=(+rows[i][key]);
+		}
+	}
+	myData.max = max;
+	myData.min = min;
+
+	//make the locator
+	if((typeof myData.locator == "function")&&($("#locator"))) { 
+		var l = myData.locator();
+		var opts = "";
+		for(var i in l) {
+			opts+='<option value="'+l[i][0]+'">'+l[i][1]+'</option>';
+		}
+		$("#locator").html($("#locator").html()+opts);
+		$("#locator").on("change",function() {
+			myData.locate($("#locator").val());
+		})
+	}
+	show_data();
+}
