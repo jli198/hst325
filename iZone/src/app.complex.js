@@ -1,4 +1,3 @@
-
 // Initialize the map
 var map = L.map('map', {
   scrollWheelZoom: false
@@ -49,7 +48,7 @@ function update_status() {
 //an object that contains info about the specific data I am displaying
 var myData = {
 	//the CSV file with the data 
-	csv: "NYCGO_museums_20and_20galleries_001.csv", 
+	csv: "IZone_School_List.csv", 
 
 	//function that returns the latitude and longtiude of the data as an array
 	latLng: function(d) { 
@@ -209,7 +208,8 @@ var myData = {
 		//tokenize the sentence based on its lower-case text, with no punctuation, split by spaces
 		//if the sentence was "Closed on Christmas, Thanksgiving." the bellow will create an array
 		//that contains ["closed","on","christmas","thanksgiving"]. 
-		var closed_words = d.Initiative.toLowerCase().replaceAll(",","").replaceAll(".","").split(" ");
+		var closed_words = d.Initiative.toLowerCase().replaceAll("iLearnNYC","iLearn360,","iLearn360, iLearnNYC").replaceAll(".","").split(" ");
+    console.log(closed_words);
 
 		//now we check the array to see if it contains the prohibited word
 		if(closed_words.includes(option.toLowerCase())) {

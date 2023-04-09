@@ -15,7 +15,7 @@
 <div id="map"></div>
 <div id="menu">
 	<div id="menu_contents">
-		<h2 class="header">NYC Museums</h2>
+		<h2 class="header">iZone Schools</h2>
 		<div id="options">
 			<div>
 				Locate data: 
@@ -24,43 +24,18 @@
 				</select>
 			</div>
 			<div>
-				Set radius: 
-					<select id="radius">
-						<option value="adult_price" selected>Adult price</option>
-						<option value="adult_price_inverse">Adult price (inverted)</option>
-						<option value="10">10</option>
-						<option value="20">20</option>
-					</select>
-				</div>
-			<div>
-				Set color: 
-				<select id="color">
-					<option value="adult_price_interpolated" selected>Adult price (interpolated)</option>
-					<option value="adult_price_ranges">Adult price (ranges)</option>
-					<option value="#3388ff">Blue</option>
-				</select>
-				</div>
-			<div>
-				Filter by open day: 
+				Filter by initative: 
 				<select id="filter_open">
 					<option value="">All</option>
 					<option value="iLearnNYC">iLearnNYC</option>
 					<option value="iLearn360">iLearn360</option>
+          <option value="iLearn360 Cohort">iLearn360 Cohort</option>
 					<option value="iLearnNYC, iLearn360">iLearnNYC, iLearn360</option>
-					<option value="Thursday">Thursday</option>
-					<option value="Friday">Friday</option>
-					<option value="Saturday">Saturday</option>
-					<option value="Sunday">Sunday</option>
-					<option value="Christmas">Christmas</option>
-					<option value="Thanksgiving">Thanksgiving</option>
+          <option value="iLearnNYC, Community Affinity Group">iLearnNYC, Community Affinity Group</option>
+          <option value="iLearnNYC, Innovate - School of One">iLearnNYC, Innovate - School of One</option>
+          <option value="Innovate - School of One">Innovate - School of One</option>
 				</select>
 			</div>
-			<div>
-				Price is less or equal: <input type="range" id="price_range" value=0> <span id="price_range_value"></span>
-			</div>
-			<div>
-				Senior discount? <input type="checkbox" id="seniors">
-		</div>
 		<div id="caption"></div>
 		<div id="status"></div>
 	</div>

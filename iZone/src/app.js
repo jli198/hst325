@@ -54,7 +54,7 @@ function update_status() {
 //an object that contains info about the specific data I am displaying
 var myData = {
 	//the CSV file with the data 
-	csv: "iZone.csv", 
+	csv: "iZone_School_List.csv", 
 
 	//function that returns the latitude and longtiude of the data as an array
 	latLng: function(d) { 
@@ -128,15 +128,33 @@ var myData = {
 	//what happens when a circle is clicked
 	caption: function(d) {
 		var o = "";
-		o+="<b>"+d.name+"</b>"; //right now just returns the field "name" of the data
+		o+="<b>"+d.School+"</b>"; //right now just returns the field "name" of the data
 		$("#caption").html(o);
 	},
 
 	//should we display a given piece of data? used for filter.
 	//if it returns true, the data will be shown as normal.
 	//if it returns false, the data will have the class "hidden" attached to it.
-	show: true, //disabled to make it simple
+	show: function(d) {
 
+		//the #filter_open select looks for keywords to determine when a
+		//museum isn't open
+		var option = $("#filter_open").val();
+
+		//if all are to be shown, display all
+		if(!option) return true;
+		//tokenize the sentence based on its lower-case text, with no punctuation, split by spaces
+		//if the sentence was "Closed on Christmas, Thanksgiving." the bellow will create an array
+		//that contains ["closed","on","christmas","thanksgiving"]. 
+		var closed_words = d.Initiative.toLowerCase().replaceAll(",","").replaceAll(".","").split(" ");
+
+		//now we check the array to see if it contains the prohibited word
+		if(closed_words.includes(option.toLowerCase())) {
+			return false;
+		} else {
+			return true;
+		}
+	},
 }
 
 //function that displays the data
@@ -163,7 +181,6 @@ function show_data() {
 	//iterate over all of the data to add the circles
 	for(var i in data) {
 		var d = data[i];
-    console.log(d)
 
     // check in DBN is empty and if so skip loop
 
