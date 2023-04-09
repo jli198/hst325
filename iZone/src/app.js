@@ -137,9 +137,9 @@ var myData = {
 	//if it returns false, the data will have the class "hidden" attached to it.
 	show: function(d) {
 
-		//the #filter_open select looks for keywords to determine when a
+		//the #filter_initiative select looks for keywords to determine when a
 		//museum isn't open
-		var option = $("#filter_open").val();
+		var option = $("#filter_initiative").val();
 
 		//if all are to be shown, display all
 		if(!option) return true;
@@ -283,7 +283,7 @@ $("#radius").on("change",function() {
 $("#color").on("change",function() {
 	update();
 })
-$("#filter_open").on("change",function() {
+$("#filter_initiative").on("change",function() {
 	update();
 })
 $("#seniors").on("change", function() {
