@@ -1,0 +1,27 @@
+# Phaser and Node.js prep assignment
+
+We're going to start exploring another Javascript package soon, called [Phaser](http://phaser.io/). </br>
+
+Phaser requires another program to run called [Node.js](https://nodejs.org/en). I know, how complicated can it get. I'll explain all of this in class, but Node.js is a program that allows Javascript be a lot more than just "code that runs in a web browser," and makes it basically be a fully-functional programming language. Phaser is a Node library that makes programming games much easier. So there's a little bit of pain up front in getting it all working, but it makes the later programming a lot easier. </br>
+</br>
+For this assignment, you just need to install Node.js and Phaser and get it working and prove to me that you have it working. If you can't get it working, try to go to Isaac's coding office hours, or we'll try to make some time in class to get you set up next week. </br>
+</br>
+If you follow these instructions carefully it ought to work. I acknowledge there are a lot of them and for some of you the Command Prompt/Terminal is going to be a bit of a scary experience. Just think of this as something you are learning how to do in this class.
+
+1. [**Download and install Node.js:**](https://nodejs.org/en/download/) — Download the appropriate installer from that link, and run it. Don't continue until you've done this.
+
+2. Download `test-project.zip`. Extract it into a folder named `test-project`. Put this folder somewhere you can find it again.
+
+3. OK. This is the hard part. If you are on Windows, you will need to open the **Command Prompt**. This can be found by typing in "Command Prompt" into the search menu next to your Start Menu. If you are on Mac, the program you want is called **Terminal**. This can be found by typing in "Terminal" into Spotlight, or looking in Applications/Utilities. Whichever you use, open it up, and you'll be greeted by an intimidating console that you can type things into.
+
+4. Inside the Command Prompt/Terminal, you will need to navigate to the `test-project` folder. The easiest way to do this is to type in **"cd"** and a space, and then **drag the `test-project` folder** onto the Command Prompt/Terminal window. This will then complete the full command (e.g., cd C:\Users\Downloads\test-project\). Press the enter/return key on your keyboard. The prompt now should indicate you are in `test-project`. (If you are on Windows, and your prompt starts with `C:\` but your test-project folder path starts with another letter, like `D:\`, type in `D:` and hit enter, and it will change to the right drive.) NOTE that you will need to be able to find this directory every time you want to work on this code, so put it somewhere straightforward!
+
+5. Assuming you are in the right directory, now type in the magic command `npm install` into Command Prompt/Terminal and press enter. A bunch of scary stuff will happen — it is probably OK. Just let it do its magic. It is downloading all of the files you need so that this little bit of code works correctly. It is a bunch of files. Don't worry if it says there are vulnerabilities or whatever. It's *probably* fine. What it is doing here is downloading all of the *dependencies* (including Phaser) that the `test-project` will need to run. (How does it know what it needs to run? Because there is a little file in there that tells it. This is the thing about Node that is basically pretty clever: installing new libraries is really easy, and there are a million libraries to do basically whatever you might want to do.)
+
+6. You can start the program by typing in the command `npm start` into Command Prompt/Terminal and pressing enter. This will tell Node that you want to run the code, and it'll compile it (into a "webpack") and then run it in a web browser. (I know, I said that Node meant that we didn't have to use a web browser. But we're going to use one anyway. Just trust me, this is a good idea.) Your default web browser should open to the [site](http://localhost:8080/), which is on your own computer (it is being run by Node and not available to anyone not using your computer). It should show an amazing retro version of Stevens that I made just for you. ***Don't close the browser yet.***
+
+7. If you've gotten all that working, you are almost at the end of this struggle. Inside the `test-project` folder are a bunch of files. Open the file `test-project/src/scenes/MainScene.js` in your code editor. Go to line 29 where it says: `var stevensSlogan = "The Innovation University®";`
+
+Change the value of the variable (`"The Innovation University®"`) to some other **equally-accurate statement** that Stevens could use as a slogan (they don't seem to be using The Innovation University® anymore in their web branding, so maybe they are looking for a new one). Save the file. If you kept the browser open with the great retro Stevens graphic, it should automatically detect you made a change to a file (!) and reload. If not, just hit refresh. Your great new slogan should be available for all to see. **Right click on the game image, and select "`Save Image As...`" and save it onto your computer as a PNG file. Upload that file here as your homework submission.**
+
+8. Congrats, you did it! You can close the Command Prompt/Terminal, and close the browser. If you ever want to quit the Node program without closing the Command Prompt/Terminal, just press Control+C in the Command Prompt/Terminal and it will make it close.
