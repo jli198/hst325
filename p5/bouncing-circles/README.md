@@ -1,6 +1,6 @@
 # bouncing-circles
 
-For your programming homework this week, I want you to modify the sketch.js file in the sample-project we looked at in class (the p5.js demo code, which is [available here](../sample-project/) Download available here) so that, at a minimum, it does the following: </br>
+For your programming homework this week, I want you to modify the sketch.js file in the sample-project we looked at in class (the p5.js demo code, which is [available here](../sample-project/) so that, at a minimum, it does the following: </br>
 
 * Instead of spawning one piece of text that bounces around the screen, change it so that it instead spawns a large number (you can pick the number, but it must be more than 10) circles that have different fills and different strokes (outlines). The circles should bounce off of the edges of the screen.
 * You should use Arrays (collections of objects) and a for loop (a way to iterate over a collection of objects, or repeat something a given number of times) to spawn the circles. Do not just paste the spawning code 100 times or something.
