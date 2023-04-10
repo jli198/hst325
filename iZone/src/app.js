@@ -97,8 +97,16 @@ var myData = {
 	}, 
 
 	//changes the fill color 
-	fillColor: function(d) {
-		return "skyblue"; 
+	fillColor: function(d) {		
+    if(d.Initiative == "iLearn360") {
+      return "skyblue";
+    }
+    else if(d.Initiative == "iLearnNYC") {
+      return "gray";
+    }
+    else {
+    return "skyblue";
+    }
 	},
 
 	//could set the stroke color separately,
