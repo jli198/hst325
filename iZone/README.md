@@ -15,3 +15,17 @@ How to go about this:
 5. Then, work to **modify** the visualization code (look at both **index.html** and **app.js**) so that it shows your new dataset. This will involve modifying the names of variables, most likely, and possibly deleting or adding some functions based on the ones already there. **Feel free to reach out to me or Isaac if you don't know how to do something**.
 
 6. When you're done and happy with it, upload it to the OneDrive into a folder called "**digital-nyc**." Write a **short discussion** of your dataset and your trials and tribulations here as what you turn in on Canvas.
+
+I've been able to get comments back to most of you who turned in the Digital NYC assignment (if I haven't gotten them back to you, I will ASAP). </br>
+</br>
+My sense is that a lot of people did NOT get the previous assignment working, some got it SOMEWHAT working, and a few got it REALLY working. </br>
+</br>
+If you are in the "didn't get it working" category: meet with me or Isaac or someone else, and work to get it working! That is your assignment for this week. </br>
+</br>
+If you are in the "somewhat working" category: spend some time this week adding additional functionality to it. Colors, filtering, etc. </br>
+</br>
+If you are in the "really working" category: you can add more functionality if there's any you can think of, or you can spend the week making the interface look better (CSS styling). </br>
+</br>
+Either way — this is basically one more week to really figure out what was up with the Digital NYC visualization, and push it beyond! </br>
+</br>
+No write-up is necessary, but let me know what changes you made, briefly.
