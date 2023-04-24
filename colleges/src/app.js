@@ -107,7 +107,21 @@ var myData = {
 
 	//changes the fill color 
 	fillColor: function(d) {
-		return "skyblue";
+		var option = $("#color").val();
+		if(option=="adult_price_ranges") {
+			if(+d.rank <= 20) {
+				return "red";
+			} 
+      else if(d.rank >= 25 && d.rank <= 100)  {
+				return "yellow";
+			} 
+      else if(d.rank > 100 && d.rank <= 250) {
+				return "green";
+			} 
+      else {
+				return "lime";
+			}
+    }
 	},
 
 	//could set the stroke color separately,
