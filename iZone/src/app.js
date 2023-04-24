@@ -66,7 +66,17 @@ var myData = {
 
 	//function that produces an array that tells it how to display in the locator control
 	locator: function() {
-		return undefined; //disabled for simple version
+		var data = [...myData.data]; //copy the data
+		data.sort(function(a,b) { //sort by name
+			if(a.name>b.name) return 1;
+			if(a.name<b.name) return -1; 
+			return 0;
+		})
+    var locator = [];
+		for(var i in data) {
+			locator.push([data[i].i,data[i].School]);
+		}
+		return locator;
 	},
 
 	//function called when something is selected on the locator
