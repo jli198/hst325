@@ -152,7 +152,7 @@ var myData = {
 	caption: function(d) {
 		var o = "";
 		o+="<b>"+d.organizationName+"</b><br>";
-    o+="Rank: " +d.rank+"<br>";
+    o+="Rank: #" +d.rank+"<br>";
     o+="Year Founded: " +d.yearFounded+"<br>";
     o+="Student Population: " +d.studentPopulation+"<br>";
     o+="Median Base Salary: " +d.medianBaseSalary+"<br>";
