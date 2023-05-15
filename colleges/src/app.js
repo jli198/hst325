@@ -108,16 +108,100 @@ var myData = {
 	//changes the fill color 
 	fillColor: function(d) {
 		var option = $("#color").val();
-		if(option=="adult_price_ranges") {
-			if(+d.rank <= 20) {
+		if(option=="rank_ranges") {
+			if(+d.rank <= 25) {
 				return "red";
 			} 
-      else if(d.rank >= 25 && d.rank <= 100)  {
+      else if(d.rank > 25 && d.rank <= 100)  {
 				return "yellow";
 			} 
       else if(d.rank > 100 && d.rank <= 250) {
 				return "green";
 			} 
+      else {
+				return "lime";
+			}
+    }
+    if(option=="studentPopulation") {
+			if(+d.studentPopulation <= 5000) {
+				return "red";
+			} 
+      else if(d.studentPopulation > 5000 && d.studentPopulation <= 15000)  {
+				return "yellow";
+			} 
+      else if(d.studentPopulation > 15000) {
+				return "green";
+			} 
+      else {
+				return "lime";
+			}
+    }
+    if(option=="campusSetting") {
+			if(d.campusSetting == "Urban") {
+				return "red";
+			} 
+      else if(d.campusSetting == "Suburban")  {
+				return "yellow";
+			} 
+      else if(d.campusSetting == "Rural") {
+				return "green";
+			} 
+      else {
+				return "lime";
+			}
+    }
+    if(option=="collegeType") {
+			if(d.collegeType == "Private" || d.collegeType == "Private not-for-profit") {
+				return "red";
+			} 
+      else if(d.collegeType == "Public")  {
+				return "green";
+      }
+      else {
+				return "lime";
+			}
+    }
+    if(option=="medianBaseSalary") {
+			if(+d.medianBaseSalary < 80000) {
+				return "red";
+			} 
+      else if(d.medianBaseSalary >= 80000 && d.medianBaseSalary < 100000)  {
+				return "yellow";
+			} 
+      else if(d.medianBaseSalary > 100000) {
+				return "green";
+			} 
+      else {
+				return "lime";
+			}
+    }
+    if(option=="studentFacultyRatio") {
+			if(+d.studentFacultyRatio <= 13) {
+				return "green";
+			} 
+      else if(d.studentFacultyRatio > 13 && d.studentFacultyRatio <= 23)  {
+				return "yellow";
+			} 
+      else if(d.studentFacultyRatio > 23) {
+				return "red";
+			} 
+      else {
+				return "lime";
+			}
+    }
+    if(option=="Region") {
+			if(d.region == "Midwest") {
+				return "yellow";
+			} 
+      else if(d.region == "Northeast")  {
+				return "green";
+      }
+      else if(d.region == "South")  {
+				return "orange";
+      }
+      else if(d.region == "West")  {
+				return "skyblue";
+      }
       else {
 				return "lime";
 			}
@@ -155,9 +239,10 @@ var myData = {
     o+="Rank: #" +d.rank+"<br>";
     o+="Year Founded: " +d.yearFounded+"<br>";
     o+="Student Population: " +d.studentPopulation+"<br>";
-    o+="Median Base Salary: " +d.medianBaseSalary+"<br>";
+    o+="Median Base Salary: $" +d.medianBaseSalary+"<br>";
     o+="Campus Setting: " +d.campusSetting+"<br>";
     o+="College Type: " +d.collegeType+"<br>";
+    o+="Student-Faculty Ratio: " +d.studentFacultyRatio+":1<br>";
     o+="City: " +d.city+"<br>";
     o+="State: " +d.state+"<br>";
     o+="State Code: " +d.stateCode+"<br>";
